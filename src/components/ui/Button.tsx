@@ -1,38 +1,43 @@
-import type { ButtonHTMLAttributes, FC } from "react";
+import type {
+  ButtonHTMLAttributes,
+  FC,
+  MouseEventHandler,
+  PropsWithChildren,
+} from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 
 const buttonStyles = cva(
-  "flex flex-row items-center py-2 px-12 space-1 border border-transparent justify-center disabled:bg-gray-300 rounded-full self-center bg-teal-500 border-teal-500",
+  "flex flex-row items-center py-2 px-12 gap-1 border border-transparent justify-center disabled:bg-neutral-100 self-center",
   {
     variants: {
+      color: {
+        primary: "bg-teal-500 border-teal-500 text-white rounded-full",
+        base: "bg-neutral-50 disabled:bg-neutral-100 border-neutral-500 border-lg text-neutral-900 disabled:text-neutral-300 rounded-lg",
+      },
       variant: {
         outlined: "bg-transparent border",
-        filled: "text-white border-transparent",
+        filled: "",
         content: "bg-transparent border-transparent p-0",
         icon: "bg-transparent border-transparent p-2",
       },
     },
     defaultVariants: {
+      color: "primary",
       variant: "filled",
     },
   },
 );
 
-const filledButtonTextStyles = cva("text-md font-medium text-white");
-
-const defaultButtonTextStyles = cva("text-md font-medium text-primary-500");
-
 interface ButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color">,
     VariantProps<typeof buttonStyles> {
-  isActive?: boolean;
   isHidden?: boolean;
 }
 
 export const Button: FC<ButtonProps> = ({
-  isActive,
   variant,
+  color,
   className,
   isHidden,
   children,
@@ -44,20 +49,10 @@ export const Button: FC<ButtonProps> = ({
 
   return (
     <button
-      className={twMerge(buttonStyles({ variant }), className)}
+      className={twMerge(buttonStyles({ variant, color }), className)}
       {...props}
     >
-      {children ? (
-        <div
-          className={
-            !variant || variant === "filled"
-              ? filledButtonTextStyles()
-              : defaultButtonTextStyles()
-          }
-        >
-          {children}
-        </div>
-      ) : null}
+      {children}
     </button>
   );
 };

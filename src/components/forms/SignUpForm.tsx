@@ -1,11 +1,5 @@
-import { FC, useEffect } from "react";
-import {
-  Controller,
-  useFieldArray,
-  useForm,
-  type DefaultValues,
-  type SubmitHandler,
-} from "react-hook-form";
+import { FC } from "react";
+import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input } from "../ui";
@@ -55,9 +49,6 @@ export const SignUpForm: FC<Props> = ({ onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div className="text-center text-lg font-bold sm:text-right sm:text-2xl">
-        ثبت نام
-      </div>
       <div className="grid grid-cols-2 grid-rows-4 gap-x-4 gap-y-3 sm:grid-rows-3 sm:gap-y-6">
         <Controller
           control={control}

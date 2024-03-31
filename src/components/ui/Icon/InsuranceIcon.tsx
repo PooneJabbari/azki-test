@@ -9,6 +9,7 @@ export const InsuranceIcon: IconType = (props) => {
       x="0px"
       y="0px"
       viewBox="0 0 387.411 387.411"
+      fill="currentColor"
       {...props}
     >
       <g>
