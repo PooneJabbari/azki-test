@@ -53,7 +53,7 @@ export const Input: FC<Props> = ({
 
         {trailing && <Trailing>{trailing}</Trailing>}
       </div>
-      <p className="text-danger-400 text-xs">{error}</p>
+      <p className="text-right text-xs text-red-400">{error}</p>
     </div>
   );
 };
