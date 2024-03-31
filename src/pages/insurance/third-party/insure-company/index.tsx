@@ -46,7 +46,9 @@ export default function InsureCompanyPage() {
             variant="outlined"
             className="relative"
             disabled={!selectedCompany}
-            onClick={() => router.push("/insurance/third-party/insure-company")}
+            onClick={() =>
+              router.push("/insurance/third-party/insure-company/discounts")
+            }
           >
             مرحله بعد
             <ArrowIcon className="absolute left-4 w-3 " />
