@@ -4,6 +4,11 @@ type Usage = { id: number; title: string };
 
 export type VehicleType = { id: number; title: string; usages: Usage[] };
 
+export type InsureCompany = {
+  id: number;
+  title: string;
+};
+
 export const getVehicleTypes = async () => {
   try {
     const { data } = await axios.get<VehicleType[]>(
@@ -19,31 +24,17 @@ export const getVehicleTypes = async () => {
   }
 };
 
-// export const getGeneration = ({
-//   input,
-//   format,
-//   length,
-// }: {
-//   input: string;
-//   length: string;
-//   format: string;
-// }) => {
-//   const data = {
-//     model: "deepseek-chat",
-//     messages: [
-//       {
-//         role: "user",
-//         content: `Please rewrite below text in length ${length} and format ${format} in English:"${input}"`,
-//       },
-//     ],
-//   };
-//   if (!input.length) return;
-//   return axios
-//     .post("https://api.deepseek.com/v1/chat/completions", data, {
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${process.env.PLASMO_PUBLIC_DEEPSEEK_API_KEY}`,
-//       },
-//     })
-//     .then((res) => res.data.choices[0].message.content);
-// };
+export const getInsureCompanies = async () => {
+  try {
+    const { data } = await axios.get<InsureCompany[]>(
+      "https://www.azki.com/api/product/third/companies",
+    );
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log("error message: ", error.message);
+    } else {
+      console.log("unexpected error: ", error);
+    }
+  }
+};

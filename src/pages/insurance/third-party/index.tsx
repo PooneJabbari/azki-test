@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function ThirdPartyPage() {
-  const [selectedType, setSelectedtype] = useState<number>();
+  const [selectedType, setSelectedType] = useState<number>();
   const [selectedModel, setSelectedModel] = useState<number>();
   const router = useRouter();
 
@@ -36,7 +36,7 @@ export default function ThirdPartyPage() {
             title="نوع خودرو"
             options={types}
             value={selectedType}
-            onChange={setSelectedtype}
+            onChange={setSelectedType}
           />
           <Select
             className="flex-1"
