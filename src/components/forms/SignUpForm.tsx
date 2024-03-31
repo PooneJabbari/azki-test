@@ -43,7 +43,7 @@ type Props = {
   onSubmit: SubmitHandler<FormSchema>;
 };
 
-export const SignupForm: FC<Props> = ({ onSubmit }) => {
+export const SignUpForm: FC<Props> = ({ onSubmit }) => {
   const {
     handleSubmit,
     control,
@@ -54,9 +54,11 @@ export const SignupForm: FC<Props> = ({ onSubmit }) => {
   });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="py-8 text-right text-3xl font-bold">ثبت نام</div>
-      <div className="grid grid-cols-2 grid-rows-5 gap-x-4 gap-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <div className="text-center text-lg font-bold sm:text-right sm:text-2xl">
+        ثبت نام
+      </div>
+      <div className="grid grid-cols-2 grid-rows-4 gap-x-4 gap-y-3 sm:grid-rows-3 sm:gap-y-6">
         <Controller
           control={control}
           name="lName"
@@ -120,9 +122,11 @@ export const SignupForm: FC<Props> = ({ onSubmit }) => {
           }}
         />
       </div>
-      <Button type="submit" variant="filled">
-        ثبت نام
-      </Button>
+      <div className="flex flex-row justify-center sm:justify-normal">
+        <Button type="submit" variant="filled">
+          ثبت نام
+        </Button>
+      </div>
     </form>
   );
 };

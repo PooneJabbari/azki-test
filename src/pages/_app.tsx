@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import localFont from "next/font/local";
 import type { AppProps, AppType } from "next/app";
+import { UserProvider } from "@/context";
 
 const shabnam = localFont({
   src: "../../public/fonts/Shabnam.ttf",
@@ -9,9 +10,11 @@ const shabnam = localFont({
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <main className={shabnam.className}>
-      <Component {...pageProps} />
-    </main>
+    <UserProvider>
+      <main className={shabnam.className}>
+        <Component {...pageProps} />
+      </main>
+    </UserProvider>
   );
 };
 
