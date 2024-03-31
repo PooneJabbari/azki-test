@@ -9,6 +9,7 @@ export const ArrowIcon: IconType = (props) => {
       x="0px"
       y="0px"
       viewBox="0 0 444.5 444.5"
+      fill="currentColor"
       {...props}
     >
       <g>
