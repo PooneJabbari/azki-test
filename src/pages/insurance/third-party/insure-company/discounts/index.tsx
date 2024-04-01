@@ -1,12 +1,11 @@
 import { getThirdDiscounts } from "@/api";
 import { Layout } from "@/components/layout";
 import { Button, Select, Title } from "@/components/ui";
+import { useOrder } from "@/context";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 
 export default function InsureCompanyPage() {
-  const [thirdPartyDiscount, setThirdPartyDiscount] = useState<number>();
-  const [accidentDiscount, setAccidentDiscount] = useState<number>();
+  const { order, setOrder } = useOrder();
 
   const { data } = useQuery({
     queryKey: ["thirdDiscounts"],
@@ -17,7 +16,7 @@ export default function InsureCompanyPage() {
     return null;
   }
 
-  const discounts = data.map(({ title, id }) => ({ label: title, value: id }));
+  const discounts = data.map(({ title }) => ({ label: title, value: title }));
 
   return (
     <Layout>
@@ -30,21 +29,27 @@ export default function InsureCompanyPage() {
           className="flex-1"
           title="درصد تخفیف ثالث"
           options={discounts}
-          value={thirdPartyDiscount}
-          onChange={setThirdPartyDiscount}
+          value={order.thirdPartyDiscount}
+          onChange={(discount: string) =>
+            setOrder({ ...order, thirdPartyDiscount: discount })
+          }
         />
         <Select
           className="flex-1"
           title="درصد تخفیف حوادث راننده"
           options={discounts}
-          value={accidentDiscount}
-          onChange={setAccidentDiscount}
+          value={order.accidentDiscount}
+          onChange={(discount: string) =>
+            setOrder({ ...order, accidentDiscount: discount })
+          }
         />
         <div className="flex flex-row justify-center sm:justify-normal">
           <Button
             variant="outlined"
-            disabled={!thirdPartyDiscount || !accidentDiscount}
-            onClick={() => {}}
+            disabled={!order.thirdPartyDiscount || !order.accidentDiscount}
+            onClick={() => {
+              console.log({ order });
+            }}
           >
             استعلام قیمت
           </Button>

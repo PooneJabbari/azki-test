@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout";
 import { Button, InsuranceIcon, Title } from "@/components/ui";
+import { useOrder } from "@/context";
 import { useRouter } from "next/router";
 import { IconType } from "react-icons";
 
@@ -23,18 +24,23 @@ const insurances: Insurance[] = [
 
 export default function InsurancePage() {
   const router = useRouter();
+  const { order, setOrder } = useOrder();
+
   return (
     <Layout>
       <div className="space-y-8 px-6 py-12 md:px-12 lg:px-24">
         <Title>انتخاب بیمه</Title>
         <div className="flex flex-row-reverse justify-evenly gap-x-5 sm:justify-normal">
-          {insurances.map(({ name, Icon, isDisabled }) => (
+          {insurances.map(({ name, Icon, isDisabled, ...props }) => (
             <Button
               key={name}
               disabled={isDisabled}
               color="base"
               className="aspect-square h-24"
-              onClick={() => router.push("/insurance/third-party")}
+              onClick={() => {
+                setOrder({ ...order, insuranceType: name });
+                "route" in props && router.push(props.route);
+              }}
             >
               <div key={name} className="flex flex-col items-center space-y-4">
                 <Icon className="h-8 w-8" />

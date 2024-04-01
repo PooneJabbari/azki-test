@@ -13,12 +13,12 @@ type User = {
 
 type userContextType = {
   user: User | undefined;
-  signUp: (user: User) => void;
+  setUser: (user: User) => void;
 };
 
 const userContextDefaultValues: userContextType = {
   user: undefined,
-  signUp: () => {},
+  setUser: () => {},
 };
 
 const UserContext = createContext<userContextType>(userContextDefaultValues);
@@ -30,18 +30,10 @@ export function useUser() {
 export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
   const [user, setUser] = useState<User>();
 
-  const signUp = (user: User) => {
-    setUser(user);
-  };
-
   const value = {
     user,
-    signUp,
+    setUser,
   };
 
-  return (
-    <>
-      <UserContext.Provider value={value}>{children}</UserContext.Provider>
-    </>
-  );
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

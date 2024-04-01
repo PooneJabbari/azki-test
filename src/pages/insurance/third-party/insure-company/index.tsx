@@ -1,13 +1,14 @@
 import { VehicleType, getInsureCompanies, getVehicleTypes } from "@/api";
 import { Layout } from "@/components/layout";
 import { ArrowIcon, Button, Select, Title } from "@/components/ui";
+import { useOrder } from "@/context";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function InsureCompanyPage() {
-  const [selectedCompany, setSelectedCompany] = useState<number>();
   const router = useRouter();
+  const { order, setOrder } = useOrder();
 
   const { data } = useQuery({
     queryKey: ["insureCompanies"],
@@ -18,7 +19,7 @@ export default function InsureCompanyPage() {
     return null;
   }
 
-  const companies = data.map(({ title, id }) => ({ label: title, value: id }));
+  const companies = data.map(({ title }) => ({ label: title, value: title }));
 
   return (
     <Layout>
@@ -31,8 +32,10 @@ export default function InsureCompanyPage() {
           className="flex-1"
           title="شرکت بیمه‌گر قبلی"
           options={companies}
-          value={selectedCompany}
-          onChange={setSelectedCompany}
+          value={order.insuranceCompany}
+          onChange={(company: string) =>
+            setOrder({ ...order, insuranceCompany: company })
+          }
         />
         <div className="flex flex-row-reverse justify-between text-xs sm:text-sm">
           <Button
@@ -45,7 +48,7 @@ export default function InsureCompanyPage() {
           <Button
             variant="outlined"
             className="relative"
-            disabled={!selectedCompany}
+            disabled={!order.insuranceCompany}
             onClick={() =>
               router.push("/insurance/third-party/insure-company/discounts")
             }

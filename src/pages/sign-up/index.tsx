@@ -5,7 +5,7 @@ import { useUser } from "@/context";
 import { useRouter } from "next/router";
 
 export default function SignUpPage() {
-  const { signUp } = useUser();
+  const { setUser } = useUser();
   const router = useRouter();
 
   return (
@@ -14,7 +14,7 @@ export default function SignUpPage() {
         <Title>ثبت نام</Title>
         <SignUpForm
           onSubmit={(data) => {
-            signUp(data);
+            setUser(data);
             router.replace("/insurance");
           }}
         />

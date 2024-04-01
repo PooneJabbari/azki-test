@@ -1,14 +1,13 @@
-import { VehicleType, getVehicleTypes } from "@/api";
+import { getVehicleTypes } from "@/api";
 import { Layout } from "@/components/layout";
 import { ArrowIcon, Button, Select, Title } from "@/components/ui";
+import { useOrder } from "@/context";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { useState } from "react";
 
 export default function ThirdPartyPage() {
-  const [selectedType, setSelectedType] = useState<number>();
-  const [selectedModel, setSelectedModel] = useState<number>();
   const router = useRouter();
+  const { order, setOrder } = useOrder();
 
   const { data } = useQuery({
     queryKey: ["vehicleTypes"],
@@ -18,10 +17,10 @@ export default function ThirdPartyPage() {
   if (!data) {
     return null;
   }
-  const types = data.map(({ title, id }) => ({ label: title, value: id }));
+  const types = data.map(({ title }) => ({ label: title, value: title }));
   const models = data
-    .find(({ id }) => selectedType === id)
-    ?.usages.map(({ title, id }) => ({ label: title, value: id }));
+    .find(({ title }) => order.vehicleType === title)
+    ?.usages.map(({ title }) => ({ label: title, value: title }));
 
   return (
     <Layout>
@@ -35,22 +34,28 @@ export default function ThirdPartyPage() {
             className="flex-1"
             title="نوع خودرو"
             options={types}
-            value={selectedType}
-            onChange={setSelectedType}
+            value={order.vehicleType}
+            onChange={(type: string) =>
+              setOrder({ ...order, vehicleType: type })
+            }
           />
           <Select
             className="flex-1"
             title="مدل خودرو"
             options={models ?? []}
-            value={selectedModel}
-            onChange={setSelectedModel}
+            value={order.vehicleModel}
+            onChange={(model: string) =>
+              setOrder({ ...order, vehicleModel: model })
+            }
           />
         </div>
         <div className="flex flex-row-reverse justify-between text-xs sm:text-sm">
           <Button
             variant="outlined"
             className="relative text-nowrap"
-            onClick={() => router.back()}
+            onClick={() => {
+              router.back();
+            }}
           >
             بازگشت
             <ArrowIcon className="absolute right-4 w-3 rotate-180" />
@@ -58,7 +63,7 @@ export default function ThirdPartyPage() {
           <Button
             variant="outlined"
             className="relative"
-            disabled={!selectedModel || !selectedType}
+            disabled={!order.vehicleType || !order.vehicleModel}
             onClick={() => router.push("/insurance/third-party/insure-company")}
           >
             مرحله بعد
