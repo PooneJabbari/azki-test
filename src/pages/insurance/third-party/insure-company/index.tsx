@@ -4,7 +4,6 @@ import { ArrowIcon, Button, Select, Title } from "@/components/ui";
 import { useOrder } from "@/context";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { useState } from "react";
 
 export default function InsureCompanyPage() {
   const router = useRouter();
