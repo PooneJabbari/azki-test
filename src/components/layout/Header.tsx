@@ -4,6 +4,7 @@ import { useUser } from "@/context";
 
 export const Header: FC = () => {
   const { user } = useUser();
+
   return (
     <header className="sticky top-0 z-10">
       <div className="flex w-full items-center justify-between px-6 py-6 sm:px-12 lg:border-none">

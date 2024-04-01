@@ -49,23 +49,7 @@ export const SignUpForm: FC<Props> = ({ onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div className="grid grid-cols-2 grid-rows-4 gap-x-4 gap-y-3 sm:grid-rows-3 sm:gap-y-6">
-        <Controller
-          control={control}
-          name="lName"
-          render={({ field: { onChange, value } }) => {
-            return (
-              <Input
-                className="col-span-2 row-start-2 md:col-span-1 md:row-span-1"
-                type="text"
-                placeholder="نام خانوادگی"
-                error={errors.lName?.message}
-                value={value}
-                onChange={onChange}
-              />
-            );
-          }}
-        />
+      <div className="rtl-grid grid grid-cols-2 grid-rows-4 gap-x-4 gap-y-3 sm:grid-rows-3 sm:gap-y-6">
         <Controller
           control={control}
           name="fName"
@@ -76,6 +60,22 @@ export const SignUpForm: FC<Props> = ({ onSubmit }) => {
                 type="text"
                 placeholder="نام"
                 error={errors.fName?.message}
+                value={value}
+                onChange={onChange}
+              />
+            );
+          }}
+        />
+        <Controller
+          control={control}
+          name="lName"
+          render={({ field: { onChange, value } }) => {
+            return (
+              <Input
+                className="col-span-2 row-start-2 md:col-span-1 md:row-span-1"
+                type="text"
+                placeholder="نام خانوادگی"
+                error={errors.lName?.message}
                 value={value}
                 onChange={onChange}
               />

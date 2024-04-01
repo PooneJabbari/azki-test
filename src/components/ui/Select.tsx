@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 import { ArrowIcon } from ".";
 
-type SelectProps<T> = {
+type Props<T> = {
   className?: string | undefined;
   title: string;
   options: Option<T>[];
@@ -94,7 +94,7 @@ export function Select<T>({
   onChange,
   className,
   title,
-}: SelectProps<T>) {
+}: Props<T>) {
   return (
     <Listbox value={value} onChange={onChange} multiple={multiple}>
       {({ open }) => (

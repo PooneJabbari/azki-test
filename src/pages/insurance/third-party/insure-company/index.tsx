@@ -1,4 +1,4 @@
-import { VehicleType, getInsureCompanies, getVehicleTypes } from "@/api";
+import { getInsureCompanies } from "@/api";
 import { Layout } from "@/components/layout";
 import { ArrowIcon, Button, Select, Title } from "@/components/ui";
 import { useOrder } from "@/context";

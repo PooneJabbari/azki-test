@@ -1,9 +1,4 @@
-import type {
-  ButtonHTMLAttributes,
-  FC,
-  MouseEventHandler,
-  PropsWithChildren,
-} from "react";
+import type { ButtonHTMLAttributes, FC } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 
@@ -30,13 +25,13 @@ const buttonStyles = cva(
   },
 );
 
-interface ButtonProps
+interface Props
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color">,
     VariantProps<typeof buttonStyles> {
   isHidden?: boolean;
 }
 
-export const Button: FC<ButtonProps> = ({
+export const Button: FC<Props> = ({
   variant,
   color,
   className,
